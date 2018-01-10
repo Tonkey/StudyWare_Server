@@ -1,3 +1,5 @@
+import { mongo } from 'mongoose';
+
 var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose')
@@ -17,13 +19,12 @@ router.get('/', (req, res, next) => {
 });
 
 //fetch all classes
-router.get('/classes', (req, res, next) => {
+router.get('/classes/:student', (req, res, next) => {
     mongoose.connect(DB, {useMongoClient:true})
-    Class.find({}, (err, data) => {
+    Class.find({student: req.query.student}, (err, data) => {
         if (err) {
             console.log(err)
         }
-        console.log(data)
         res.send(data)
         mongoose.connection.close()
     })
@@ -32,11 +33,13 @@ router.get('/classes', (req, res, next) => {
 // /user/user?_id=xxx
 // Fetch user by _id
 router.get('/user/:user', (req, res, next) => {
+    mongoose.connect(DB, {useMongoClient: true})
     User.find({ _id: req.query._id }, (err, data) => {
         if (err) {
             console.log(err)
         }
         res.send(data)
+        mongoose.connection.close()
     })
 })
 
