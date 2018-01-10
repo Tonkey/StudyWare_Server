@@ -11,6 +11,8 @@ var Class = mongoose.model('class')
 var User = mongoose.model('user')
 var StudyPoint = mongoose.model('studyPoint')
 
+// TODO: implement functionality for register function... update a given studypoint in the correct array
+
 /* GET home page. */
 router.get('/', (req, res, next) => {
     res.send('StudyWare Studpoints backend API')
@@ -37,63 +39,6 @@ router.get('/user/:user', (req, res, next) => {
             console.log(err)
         }
         res.send(data)
-        mongoose.connection.close()
-    })
-})
-
-// Fetch all StudyPoints
-router.get('/sp', (req, res, next) => {
-    mongoose.connect(DB, {useMongoClient:true})
-    StudyPoint.find({}, (err, data) => {
-        if(err){
-            console.log(err)
-        }
-        res.send(data)
-        mongoose.connection.close()
-    })
-})
-
-// /sp/data?user=xxx&class=xxx
-// Fetch studypoints by user and class
-router.get('/sp/:data', (req, res, next) => {
-    let owner = req.query.user
-    let aClass = req.query.class
-    mongoose.connect(DB, {useMongoClient:true})
-    // if a class was not passed
-    if (aClass === undefined) {
-        StudyPoint.find({ owner: owner }, (err, data) => {
-            if (err) {
-                console.log(err)
-            }
-            res.send(data)
-            mongoose.connection.close()
-        })
-    }
-    // if both arguments are present
-    else {
-        StudyPoint.find({ owner: owner, class: aClass }, (err, data) => {
-            if (err) {
-                console.log(err)
-            }
-            res.send(data)
-            mongoose.connection.close()
-        })
-    }
-})
-
-// Get all points this sutdent has gotten, without data about what course theu belong to
-router.get('/points', (req,res,next)=>{
-    let owner = req.query._id
-    let points = []
-    mongoose.connect(DB, {useMongoClient:true})
-    StudyPoint.find({ owner: owner }, (err,data)=> {
-        if(err){
-            console.log(err)
-        }
-        points = data.map((point)=>{
-            return point.pointsGotten
-        })
-        res.send(points)
         mongoose.connection.close()
     })
 })
