@@ -1,4 +1,5 @@
 // WORKING ON NEW VERSION. LOOK AT api.js
+// Deprecated, consider deleting file!
 
 var express = require('express');
 var router = express.Router();
