@@ -1,5 +1,3 @@
-import { mongo } from 'mongoose';
-
 var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose')
@@ -33,7 +31,7 @@ router.get('/classes/:student', (req, res, next) => {
 // /user/user?_id=xxx
 // Fetch user by _id
 router.get('/user/:user', (req, res, next) => {
-    mongoose.connect(DB, {useMongoClient: true})
+    mongoose.connect(DB, {useMongoClient:true})
     User.find({ _id: req.query._id }, (err, data) => {
         if (err) {
             console.log(err)
