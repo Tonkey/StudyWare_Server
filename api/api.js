@@ -46,7 +46,7 @@ router.get('/user/:user', (req, res, next) => {
 // requires 
 router.get('/register/:data', (req,res,next) => {
     mongoose.connect(DB, {useMongoClient:true})
-    Class.findOneAndUpdate({_id: req.query._id, student: req.query.student, 'attendance.id': {$eq:req.query.id}},{$set: {'attendance.$.pointsGotten': 1} }, (err,data) => {
+    Class.findOneAndUpdate({id: req.query._id, student: req.query.student, 'attendance.id': {$eq:req.query.id}},{$set: {'attendance.$.pointsGotten': 1} }, (err,data) => {
         if(err){
             console.log(err)
         }

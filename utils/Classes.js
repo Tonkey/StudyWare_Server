@@ -3,7 +3,7 @@ var mongoose = require('mongoose')
 var Schema = mongoose.Schema
 
 var ClassSchema = new Schema({
-    _id: {type: String},
+    id: {type: String},
     student: {type: String},
     pointsAvailable: {type: Number, max: 100, min: 0},
     pointsRequired: {type: Number, max: 100, min: 0},

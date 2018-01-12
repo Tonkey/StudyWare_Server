@@ -26,6 +26,14 @@ var user3 = new User({
 user1.save((err)=> {
     if(err) throw err
     console.log('user saved')
+})
+user2.save((err)=> {
+    if(err) throw err
+    console.log('user saved')
+})
+user3.save((err)=> {
+    if(err) throw err
+    console.log('user saved')
     mongoose.connection.close()
 })
 
